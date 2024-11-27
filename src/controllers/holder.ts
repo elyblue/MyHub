@@ -1,19 +1,16 @@
 import { Request, Response } from "express";
-import { insertHolder } from "../services/holder";
+import { getallHolders as importedGetallHolders, insertHolder } from "../services/holder";
 import { handleHttp } from "../utils/error.handle";
 
-const getHolder= (req: Request, res: Response) => {
-    try {
-      } catch (error) {
-        res.status(500).send("An error occurred"); 
-      }  
-};
 
-const getHolders = (req: Request, res: Response) => {
-    try {
-      } catch (error) {
-        res.status(500).send("An error occurred"); 
-      }
+
+const getallHolders= async (req: Request, res: Response) => {
+  try {
+    const response = await getallHolders;
+    res.send(response)
+    } catch (e) {
+      handleHttp(res,"An error occurred"); 
+    }  
 };
 
 const updateHolder = (req: Request, res: Response) => {
@@ -42,6 +39,6 @@ const deleteHolder = (req: Request, res: Response) => {
   }
 };
 
-export { getHolder, getHolders, postHolder, updateHolder, deleteHolder };
+export { getallHolders, postHolder, updateHolder, deleteHolder };
 
 

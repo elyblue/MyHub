@@ -1,5 +1,6 @@
 import { holder } from "../interfaces/holder.interface";
 import HolderModel from "../models/holder";
+import { handleHttp } from "../utils/error.handle";
 
 
 const insertHolder = async (holder: any) => {
@@ -15,27 +16,49 @@ const insertHolder = async (holder: any) => {
 
 export default insertHolder;
 
-
-const getHolders = async () => {
-  const responseHolder = await HolderModel.find({});
-  return responseHolder;
+const getallHolders = async () => {
+  try {
+    const responseHolder = await HolderModel.find({});
+    console.log("Holder encontrado en MongoDB:", responseHolder);
+    return responseHolder;
+  } catch (error) {
+  }
 };
 
 const getHolder = async (id: string) => {
-  const responseHolder = await HolderModel.findOne({ _id: id });
-  return responseHolder;
+  console.log(`Buscando holder con ID: ${id}`);
+  try {
+    const responseHolder = await HolderModel.findOne({ _id: id });
+    console.log("Holder encontrado en MongoDB:", responseHolder);
+    return responseHolder;
+  } catch (error) {
+    console.error(`Error al buscar el holder con ID ${id} en MongoDB:`, error);
+  }
 };
 
+
 const updateHolder = async (id: string, data: holder) => {
-  const responseHolder = await HolderModel.findOneAndUpdate({ _id: id }, data, {
-    new: true,
-  });
-  return responseHolder;
+  console.log(`Actualizando holder con ID: ${id}`, data);
+  try {
+    const responseHolder = await HolderModel.findOneAndUpdate({ _id: id }, data, {
+      new: true,
+    });
+    console.log("holder actualizado en MongoDB:", responseHolder);
+    return responseHolder;
+  } catch (error) {
+    console.error(`Error al actualizar el holder con ID ${id} en MongoDB:`, error);
+  }
 };
 
 const deleteHolder = async (id: string) => {
-  const responseHolder = await HolderModel.deleteOne({ _id: id });
-  return responseHolder
+  console.log(`Eliminando holder con ID: ${id}`);
+  try {
+    const responseHolder = await HolderModel.deleteOne({ _id: id });
+    console.log(`holder con ID ${id} eliminado de MongoDB:`, responseHolder);
+    return responseHolder;
+  } catch (error) {
+    console.error(`Error al eliminar el holder con ID ${id} en MongoDB:`, error);
+  }
 };
 
-export { insertHolder, getHolders, getHolder, updateHolder, deleteHolder };
+export { insertHolder, getallHolders, getHolder, updateHolder, deleteHolder };
