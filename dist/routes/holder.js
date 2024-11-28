@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const holder_1 = require("../controllers/holder");
+const log_1 = require("../middleware/log");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get("/:id", holder_1.getHolder);
+router.get("/", log_1.logMiddleware, holder_1.getHolders);
+router.post("/", holder_1.postholder);
+router.put("/:id", holder_1.updateHolder);
+router.delete("/:id", holder_1.deleteHolder);
